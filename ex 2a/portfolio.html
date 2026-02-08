@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Faseeha M | Portfolio</title>
+
+<style>
+
+:root {
+  --bg-main: #f8fafc;
+  --bg-soft: #e2e8f0;
+  --card-bg: #ffffff;
+  --accent: #3b82f6;
+  --text-main: #1e293b;
+  --text-muted: #475569;
+  --radius: 12px;
+  --font: "Segoe UI", sans-serif;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 60px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: var(--text-main);
+}
+
+nav a:hover {
+  color: var(--accent);
+}
+
+.hero {
+  display: flex;
+  min-height: 90vh;
+}
+
+.hero-left,
+.hero-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+}
+
+.hero-left h1 {
+  font-size: 48px;
+  color: var(--accent);
+}
+
+.hero-left p {
+  margin-top: 10px;
+  font-size: 18px;
+  color: var(--text-muted);
+}
+
+.hero-right {
+  background: var(--bg-soft);
+}
+
+.hero-right h2 {
+  font-size: 32px;
+}
+
+.hero-right p {
+  margin: 15px 0;
+  color: var(--text-muted);
+}
+
+.hero-right a {
+  display: inline-block;
+  padding: 12px 26px;
+  background: var(--accent);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: bold;
+}
+
+section {
+  padding: 80px 60px;
+}
+
+section h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--accent);
+}
+
+.project-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.card {
+  width: 260px;
+  height: 300px;
+  perspective: 1000px;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  transition: 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 20px;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  color: var(--text-muted);
+}
+
+.skill {
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.skill span {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.bar {
+  background: #cbd5e1;
+  height: 12px;
+  border-radius: 10px;
+}
+
+.fill {
+  height: 100%;
+  background: var(--accent);
+}
+
+.html { width: 90%; }
+.css { width: 80%; }
+.js { width: 70%; }
+
+#testimonials input {
+  display: none;
+}
+
+.carousel {
+  width: 500px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.slides {
+  display: flex;
+  width: 1500px;
+  transition: 0.6s;
+}
+
+.slide {
+  width: 500px;
+  text-align: center;
+}
+
+#t1:checked ~ .carousel .slides { transform: translateX(0); }
+#t2:checked ~ .carousel .slides { transform: translateX(-500px); }
+#t3:checked ~ .carousel .slides { transform: translateX(-1000px); }
+
+.dots {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.dots label {
+  width: 12px;
+  height: 12px;
+  background: #94a3b8;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 5px;
+  cursor: pointer;
+}
+
+#t1:checked ~ .dots label[for="t1"],
+#t2:checked ~ .dots label[for="t2"],
+#t3:checked ~ .dots label[for="t3"] {
+  background: var(--accent);
+}
+
+form {
+  max-width: 420px;
+  margin: auto;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 12px 0;
+  border: 2px solid #cbd5e1;
+}
+
+input:required:invalid,
+textarea:required:invalid {
+  border-color: #ef4444;
+}
+
+input:required:valid,
+textarea:required:valid {
+  border-color: #22c55e;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+
+footer {
+  background: white;
+  text-align: center;
+  padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h3>Portfolio</h3>
+  <nav>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-left">
+    <div>
+      <h1>Faseeha M</h1>
+      <p>Creative Designer & Frontend Developer</p>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div>
+      <h2>Hello, I’m a Creative Professional</h2>
+      <p>
+        I create clean, user-friendly designs and responsive layouts
+        using HTML and CSS.
+      </p>
+      <a href="#projects">View My Work</a>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="project-grid">
+    <div class="card"><div class="card-inner">
+      <div class="card-front"><h3>Portfolio</h3></div>
+      <div class="card-back">Personal branding website</div>
+    </div></div>
+
+    <div class="card"><div class="card-inner">
+      <div class="card-front"><h3>Landing Page</h3></div>
+      <div class="card-back">Marketing website design</div>
+    </div></div>
+
+    <div class="card"><div class="card-inner">
+      <div class="card-front"><h3>Dashboard</h3></div>
+      <div class="card-back">Admin UI layout</div>
+    </div></div>
+  </div>
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="skill"><span>HTML <b>90%</b></span><div class="bar"><div class="fill html"></div></div></div>
+  <div class="skill"><span>CSS <b>80%</b></span><div class="bar"><div class="fill css"></div></div></div>
+  <div class="skill"><span>JavaScript <b>70%</b></span><div class="bar"><div class="fill js"></div></div></div>
+</section>
+
+<section id="testimonials">
+  <h2>Testimonials</h2>
+
+  <input type="radio" name="t" id="t1" checked>
+  <input type="radio" name="t" id="t2">
+  <input type="radio" name="t" id="t3">
+
+  <div class="carousel">
+    <div class="slides">
+      <div class="slide">"Very creative and professional"</div>
+      <div class="slide">"Delivered quality work on time"</div>
+      <div class="slide">"Highly recommended"</div>
+    </div>
+  </div>
+
+  <div class="dots">
+    <label for="t1"></label>
+    <label for="t2"></label>
+    <label for="t3"></label>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <form>
+    <input type="text" placeholder="Name" required>
+    <input type="email" placeholder="Email" required>
+    <textarea rows="4" placeholder="Message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</section>
+
+<footer>
+  © 2026 Faseeha M
+</footer>
+
+</body>
+</html>
