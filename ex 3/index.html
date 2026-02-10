@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User Experience Survey (DHTML)</title>
+
+<style>
+body {
+  font-family: Verdana, sans-serif;
+  background: #eef2f7;
+  padding: 20px;
+}
+
+.box {
+  background: #ffffff;
+  max-width: 760px;
+  margin: auto;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.description {
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* Question styling */
+.question {
+  margin-bottom: 22px;
+}
+
+.question label {
+  font-size: 16px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Answer styling */
+.question input,
+.question select,
+.question textarea {
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+textarea {
+  width: 100%;
+  resize: none;
+}
+
+.error {
+  color: crimson;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* Progress bar */
+.progress {
+  height: 18px;
+  background: #d0d0d0;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #016b25;
+  border-radius: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 15px;
+  background: #016b25;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:hover{
+  background:#108a39;
+}
+
+.hide {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>User Experience Survey</h2>
+<p class="description">
+  This survey is conducted to collect user feedback regarding experience,
+  satisfaction, and preferences.
+</p>
+
+<div class="progress">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<form id="survey">
+
+<!-- Q1 -->
+<div class="question">
+<label>1. Your age group *</label>
+<select id="age">
+  <option value="">-- Select --</option>
+  <option value="below18">Below 18</option>
+  <option value="18-25">18–25</option>
+  <option value="26+">26+</option>
+</select>
+<div class="error" id="e1"></div>
+</div>
+
+<!-- Q2 Conditional -->
+<div class="question hide" id="studentQ">
+<label>2. Are you a student? *</label>
+<input type="radio" name="student" value="Yes"> Yes<br>
+<input type="radio" name="student" value="No"> No
+<div class="error" id="e2"></div>
+</div>
+
+<!-- Q3 -->
+<div class="question">
+<label>3. Satisfaction level (1–10) *</label>
+<input type="range" id="satisfaction" min="1" max="10">
+<span id="rangeVal">5</span>
+<div class="error" id="e3"></div>
+</div>
+
+<!-- Q4 -->
+<div class="question">
+<label>4. Choose 2–3 interests *</label>
+<input type="checkbox" class="interest"> Technology<br>
+<input type="checkbox" class="interest"> Design<br>
+<input type="checkbox" class="interest"> Marketing<br>
+<input type="checkbox" class="interest"> Business
+<div class="error" id="e4"></div>
+</div>
+
+<!-- Q5 -->
+<div class="question">
+<label>5. Suggestions *</label>
+<textarea id="suggestions" rows="4"></textarea>
+<div class="error" id="e5"></div>
+</div>
+
+<button type="button" onclick="validate()">Submit</button>
+
+</form>
+</div>
+
+<script>
+const progressFill = document.getElementById("progressFill");
+const form = document.getElementById("survey");
+
+/* Conditional question */
+age.addEventListener("change", function () {
+  studentQ.classList.toggle("hide", this.value === "");
+  updateProgress();
+});
+
+/* Range display */
+satisfaction.addEventListener("input", function () {
+  rangeVal.textContent = this.value;
+  updateProgress();
+});
+
+/* Progress bar logic */
+function updateProgress() {
+  let score = 0;
+  if (age.value) score++;
+  if (document.querySelector('input[name="student"]:checked')) score++;
+  if (satisfaction.value) score++;
+  if (document.querySelectorAll(".interest:checked").length >= 2) score++;
+  if (suggestions.value.trim()) score++;
+
+  progressFill.style.width = (score / 5) * 100 + "%";
+}
+
+form.addEventListener("change", updateProgress);
+form.addEventListener("keyup", updateProgress);
+
+/* Validation */
+function validate() {
+  let valid = true;
+  document.querySelectorAll(".error").forEach(e => e.textContent = "");
+
+  if (!age.value) {
+    e1.textContent = "Required";
+    valid = false;
+  }
+
+  if (!document.querySelector('input[name="student"]:checked')) {
+    e2.textContent = "Required";
+    valid = false;
+  }
+
+  const count = document.querySelectorAll(".interest:checked").length;
+  if (count < 2 || count > 3) {
+    e4.textContent = "Select 2 to 3 options";
+    valid = false;
+  }
+
+  if (!suggestions.value.trim()) {
+    e5.textContent = "Required";
+    valid = false;
+  }
+
+  if (valid) {
+    alert("Survey Submitted Successfully!");
+  }
+}
+
+/* Auto-save every 8 seconds */
+setInterval(() => {
+  if (suggestions.value.trim()) {
+    console.log("Auto-saved at", new Date().toLocaleTimeString());
+  }
+}, 8000);
+</script>
+
+</body>
+</html>
